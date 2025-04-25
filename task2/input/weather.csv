@@ -1,0 +1,4 @@
+location,timestamp,temperature,humidity
+New Delhi-8118,2024-12-31T23:30:00.000Z,15.0,70
+New Delhi-8118,2025-01-01T11:30:00.000Z,18.0,65
+New Delhi-8118,2025-01-01T22:30:00.000Z,14.0,80
