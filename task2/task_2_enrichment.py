@@ -1,30 +1,35 @@
 from pyspark.sql import SparkSession, Window
-from pyspark.sql.functions import (
-    col, to_timestamp, dayofweek, hour, avg, count, min, max
-)
+from pyspark.sql.functions import col, to_timestamp, dayofweek, hour, avg, expr
+from datetime import timedelta
 
 # Initialize Spark session
 spark = SparkSession.builder.appName("AirQualityEnrichment").getOrCreate()
 spark.sparkContext.setLogLevel("WARN")
 
-# Load cleaned air quality data from Task 1
+# Load cleaned air quality data
 aq_path = "./task1/output/task_1_cleaned.csv"
 aq_df = spark.read.option("header", True).csv(aq_path)
 aq_df = aq_df.withColumn("timestamp", to_timestamp("timestamp"))
 
-# Load weather data (provide a real or mock file as needed)
+# Load weather data
 weather_path = "./task2/input/weather.csv"
 weather_df = spark.read.option("header", True).csv(weather_path)
 weather_df = weather_df.withColumn("timestamp", to_timestamp("timestamp"))
 weather_df = weather_df.withColumn("temperature", col("temperature").cast("double"))
 weather_df = weather_df.withColumn("humidity", col("humidity").cast("double"))
 
-# Join on location and timestamp (exact match)
-joined_df = aq_df.join(
-    weather_df,
-    on=["location", "timestamp"],
+# Define the time window for the join (e.g., 30 minutes)
+time_window = 30  # minutes
+
+# Join DataFrames using a timestamp window
+joined_df = aq_df.alias("aq").join(
+    weather_df.alias("weather"),
+    expr(f"""
+        aq.location = weather.location AND
+        abs(unix_timestamp(aq.timestamp) - unix_timestamp(weather.timestamp)) <= {time_window} * 60
+    """),
     how="inner"
-)
+).select("aq.*", "weather.temperature", "weather.humidity")
 
 # Outlier removal
 joined_df = joined_df.filter(
