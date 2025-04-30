@@ -1,4 +1,4 @@
-# Section 4: Spark MLlib - Predictive Modeling Pipeline (with output written to file)
+# Section 4: Spark MLlib - Predictive Modeling Pipeline (corrected features, realistic evaluation)
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, when
@@ -45,8 +45,8 @@ df = df.withColumn(
     .otherwise("Hazardous")
 )
 
-# 4. Select features and label columns
-feature_cols = ["PM25", "temperature", "humidity", "pm25_rolling_avg", "pm25_x_humidity"]
+# 4. Select features (excluding PM25 for regression)
+feature_cols = ["temperature", "humidity", "pm25_rolling_avg", "pm25_x_humidity"]
 assembler = VectorAssembler(inputCols=feature_cols, outputCol="features_raw")
 df = assembler.transform(df)
 
@@ -121,4 +121,3 @@ print("4. Write predictions to sink (e.g., Parquet or PostgreSQL).")
 
 spark.stop()
 sys.stdout.close()
-

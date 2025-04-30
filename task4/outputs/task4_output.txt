@@ -1,11 +1,9 @@
-Converting CSV at input/input.csv to Parquet at input/feature/...
-Conversion complete.
-Regression RMSE: 6.04
-Regression R²: 0.98
-Tuned RMSE (Regression): 4.534979576256909
-Classification Accuracy: 1.00
-Classification F1 Score: 1.00
-Tuned Accuracy (Classification): 1.0
+Regression RMSE: 9.85
+Regression R²: 0.94
+Tuned RMSE (Regression): 8.86070596913139
+Classification Accuracy: 0.97
+Classification F1 Score: 0.97
+Tuned Accuracy (Classification): 0.9666666666666667
 
 --- Real-Time Prediction Plan ---
 1. Ingest streaming data from TCP using Spark Structured Streaming.
