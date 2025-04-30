@@ -15,7 +15,48 @@ In task 1, the goal is to collect the data from a simulated tcp server, and do s
     - Min Value: 8.0
     - Max Value: 442.0
 
-# Task 2: . . .
+# Task 2 (Vinay):  Data Enrichment and Feature Engineering
+## Overview
+ This folder contains scripts and outputs for Task 2 of the air_quality_analysis_spark project.
+ Objective: Enrich cleaned air quality data by joining with weather data (temperature and humidity), handle outliers, and engineer features for downstream analytics and modeling.##
+
+## Folder Structure
+    air_quality_analysis_spark/
+      └── task2/
+          ├── input/
+          │     └── weather.csv        # Generated weather data (randomized, >1000 rows)
+          ├── output/
+          │     └── task_2_enriched.csv  # Enriched dataset after joining and feature engineering
+          └── task_2_enrichment.py     # Main script for Task 2
+          └── get_weather_data.py      # Script to generate mock weather data
+
+### How It Works
+ 1. Generate Weather Data
+ - Since real weather API access is unreliable or limited, we generate a mock weather.csv with random but realistic temperature and humidity values for the required date range and location.
+ - To generate historical weather data:
+ ```bash
+    python3 task2/get_weather_data.py
+ ```
+- This creates hourly weather data for "New Delhi-8118" for a date range covering all air quality timestamps, ensuring >1000 rows.
+
+- Columns: location, timestamp, temperature, humidity
+
+2. Enrich Air Quality Data
+    The script task_2_enrichment.py performs the following:
+    - Loads cleaned air quality data from task1/output/task_1_cleaned.csv
+    - Loads weather data from task2/input/weather.csv
+    - Joins both datasets on location and timestamp (with a configurable time window for robust matching)
+    - Handles outliers in both air quality and weather features
+    Engineers new features: 
+    - Day of week and hour of day
+    - Rolling average of PM2.5
+    - Interaction term: PM2.5 × humidity
+    - Saves the enriched result to task2/output/task_2_enriched.csv
+- To run enrichment:
+```bash
+spark-submit task2/task_2_enrichment.py
+```
+
 # Task 3: . . .
 # Task 4: . . .
 # Task 5: . . .
