@@ -1,4 +1,4 @@
-# Section 4: Spark MLlib - Predictive Modeling Pipeline
+# Section 4: Spark MLlib - Predictive Modeling Pipeline (with output written to file)
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, when
@@ -9,13 +9,17 @@ from pyspark.ml.evaluation import RegressionEvaluator, MulticlassClassificationE
 from pyspark.ml.tuning import ParamGridBuilder, CrossValidator
 import os
 
+# Redirect output to a file
+import sys
+sys.stdout = open("outputs/task4_output.txt", "w")
+
 # 1. Start Spark session
 spark = SparkSession.builder \
     .appName("AirQualityMLModeling") \
     .getOrCreate()
 
 # 2. Check if Parquet file exists, otherwise convert CSV to Parquet
-csv_path = "input/task3_input.csv"
+csv_path = "input/input.csv"
 parquet_path = "input/feature/"
 
 if not os.path.exists(parquet_path):
@@ -116,3 +120,5 @@ print("3. Use best trained model to predict in real-time.")
 print("4. Write predictions to sink (e.g., Parquet or PostgreSQL).")
 
 spark.stop()
+sys.stdout.close()
+
