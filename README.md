@@ -17,7 +17,7 @@ In task 1, the goal is to collect the data from a simulated tcp server, and do s
 
 # Task 2: . . .
 
-## Task 3 (Michael): Spark SQL Analysis
+## Task 3 (Shreyash): Spark SQL Analysis
 In task 3, the goal is to use Spark SQL to analyze air quality data and discover patterns in PM2.5 readings across regions.
 - I created a script (`task3_spark_sql_analysis.py`) that reads the cleaned weather data and registers it as a temporary view.
 - A UDF was implemented to categorize PM2.5 readings into AQI categories (Good, Moderate, Unhealthy for Sensitive Groups, Unhealthy, Very Unhealthy, Hazardous).
