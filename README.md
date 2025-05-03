@@ -78,7 +78,7 @@ Output:
 
 4) Strategy for integrating model into streaming predictions
 
-### Task 5: Pipeline and Dashboard
+# Task 5: Pipeline and Dashboard
 
 ## Steps:
 
@@ -94,7 +94,7 @@ Output:
 
 ## Output
 
-# Final outputs saved to:
+### Final outputs saved to:
 
 1) Parquet, CSV, or PostgreSQL.
 
