@@ -78,4 +78,25 @@ Output:
 
 4) Strategy for integrating model into streaming predictions
 
-# Task 5: . . .
+### Task 5: Pipeline and Dashboard
+
+## Steps:
+
+1) Data Ingestion: Loads raw data from various sources (e.g., CSV, Parquet, PostgreSQL).
+
+2) Data Transformation: Applies necessary transformations such as cleaning, normalization, and timestamp conversion.
+
+3) SQL Analysis: Runs SQL queries to aggregate and filter data.
+
+4) ML Modeling: Trains a machine learning model on the transformed data (e.g., regression or classification).
+
+5) Dashboard Visualization: Generates interactive visualizations using Plotly to display key insights and model performance.
+
+## Output
+
+# Final outputs saved to:
+
+1) Parquet, CSV, or PostgreSQL.
+
+2) Interactive visualizations displayed using Plotly and Matplotlib.
+
